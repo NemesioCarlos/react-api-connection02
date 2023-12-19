@@ -1,16 +1,39 @@
 "use client"
-import axios from "axios";
-import {useState } from "react";
+// import axios from "axios";
+import {useEffect, useState, } from "react";
+import { api } from "../../services/api";
 
 export default function Home() {
 
-  
   const [character, setCharacter] = useState([])  
 
-  axios.get("https://rickandmortyapi.com/api/character").then((response) => {
-    const respostaApi = response.data.results;
-    setCharacter(respostaApi);
-  });
+  useEffect(()=>{
+    api.get("/personagens").then((response) => {
+  
+      setCharacter(response.data);
+    });
+  },[])
+
+  const addPerson = () => {
+    const personName = document.getElementById("PersonName") as HTMLInputElement;
+    const personStatus = document.getElementById("PersonStatus") as HTMLInputElement;
+
+    const newPerson = {
+      name: personName.value,
+      status: personStatus.value,
+    }
+
+    if (personName.value == "" || personStatus.value == ""){
+      alert("Please enter a neme and age")
+    } else {
+      api.post("/personagens", newPerson).then((reponse) =>{
+        setCharacter([...character,response.data])
+      })
+    }
+  };
+
+
+
 
   return (
     <>
@@ -23,10 +46,9 @@ export default function Home() {
             <ul key={personagem.id}>
               <li className="text-xl text-amber-900">{personagem.name}</li>
               <li>{personagem.species}</li>
-              <li>{personagem.status}</li>
-              <li>{personagem.origin.name}</li>
-              <li>{personagem.location.name}</li>
+              <li>{personagem.status} <button className="bg-blue-100">save</button></li>
             </ul>
+            
           )
         })
       }

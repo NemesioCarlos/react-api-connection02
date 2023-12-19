@@ -1,0 +1,24 @@
+
+
+{
+  "personagens": [
+    {
+      "id": 1,
+      "name": "Rick Sanchez",
+      "status": "Alive",
+      "species": "Human"
+    },
+    {
+      "id": 2,
+      "name": "Morty smith",
+      "status": "Alive",
+      "species": "Human"
+    },
+    {
+      "id": 3,
+      "name": "Líbna larissa",
+      "status": "Alive",
+      "species": "Alien"
+    }
+  ]
+}
